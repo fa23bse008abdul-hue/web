@@ -1,0 +1,15 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+#cvContent {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+
+#cvContent h2 {
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
