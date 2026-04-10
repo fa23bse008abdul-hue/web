@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Quiz App</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body {
+  transition: background 0.3s, color 0.3s;
+}
+
+.dark-mode {
+  background: #121212 !important;
+  color: #ffffff !important;
+}
+
+.dark-mode .list-group-item {
+  background-color: #1e1e1e;
+  color: white;
+  border-color: #333;
+}
+
+.dark-mode .btn {
+  border-color: #555;
+}
+
+
+.question-box {
+  margin-top: 30px;
+}
+
+.option {
+  cursor: pointer;
+}
+
+.correct {
+  background-color: #28a745 !important;
+  color: white;
+}
+
+.wrong {
+  background-color: #dc3545 !important;
+  color: white;
+}
+
+.progress-container {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.progress-segment {
+  flex: 1;
+  height: 10px;
+  background: #ddd;
+}
+
+.progress-segment.active {
+  background: orange;
+}
+
+.progress-segment.correct {
+  background: green;
+}
+
+.progress-segment.wrong {
+  background: red;
+}
+
+.timer {
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body class="bg-light">
+
+<div class="container py-4">
+  <div class="d-flex justify-content-between">
+    <h3>Quiz App</h3>
+    <button class="btn btn-secondary" onclick="toggleMode()">🌙 Toggle Mode</button>
+  </div>
+
+  <div class="timer mt-2">Time Left: <span id="time">15</span>s</div>
+
+  <div id="progressBar" class="progress-container"></div>
+
+  <div class="question-box">
+    <h5 id="question"></h5>
+    <div id="options" class="list-group mt-3"></div>
+  </div>
+
+  <button id="nextBtn" class="btn btn-primary mt-3" disabled>Next</button>
+
+  <div id="result" class="mt-4"></div>
+</div>
+
+<script>
+const questions = [
+  {
+    q: "What does HTML stand for?",
+    options: ["Hyper Text Markup Language", "High Tech Modern Language", "Hyper Transfer Markup Level", "Home Tool Markup Language"],
+    answer: 0
+  },
+  {
+    q: "Which language is used for styling?",
+    options: ["HTML", "CSS", "Python", "Java"],
+    answer: 1
+  },
+  {
+    q: "Which is a JavaScript framework?",
+    options: ["Laravel", "Django", "React", "Flask"],
+    answer: 2
+  },
+  {
+    q: "Which tag is used for links?",
+    options: ["<a>", "<p>", "<div>", "<h1>"],
+    answer: 0
+  },
+  {
+    q: "Which property changes text color?",
+    options: ["font-color", "text-style", "color", "background"],
+    answer: 2
+  }
+];
+
+// Shuffle questions
+let storedQuestions = localStorage.getItem("quizQuestions");
+
+if (storedQuestions) {
+  questions.splice(0, questions.length, ...JSON.parse(storedQuestions));
+} else {
+  questions.sort(() => Math.random() - 0.5);
+  localStorage.setItem("quizQuestions", JSON.stringify(questions));
+}
+
+let current = 0;
+let score = 0;
+let timer;
+let timeLeft = 15;
+let userAnswers = []; // Array to store user's selected answers
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const nextBtn = document.getElementById("nextBtn");
+const resultEl = document.getElementById("result");
+const timeEl = document.getElementById("time");
+const progressBar = document.getElementById("progressBar");
+
+// Create progress segments
+questions.forEach(() => {
+  const seg = document.createElement("div");
+  seg.classList.add("progress-segment");
+  progressBar.appendChild(seg);
+});
+
+function loadQuestion() {
+  resetState();
+  startTimer();
+
+  const q = questions[current];
+  questionEl.textContent = q.q;
+
+  q.options.forEach((opt, index) => {
+    const btn = document.createElement("button");
+    btn.classList.add("list-group-item", "list-group-item-action", "option");
+    btn.textContent = opt;
+
+    btn.onclick = () => selectAnswer(btn, index);
+    optionsEl.appendChild(btn);
+  });
+}
+
+function resetState() {
+  nextBtn.disabled = true;
+  optionsEl.innerHTML = "";
+  clearInterval(timer);
+  timeLeft = 15;
+  timeEl.textContent = timeLeft;
+}
+
+function startTimer() {
+  timer = setInterval(() => {
+    timeLeft--;
+    timeEl.textContent = timeLeft;
+
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      lockAnswers();
+    }
+  }, 1000);
+}
+
+function selectAnswer(btn, index) {
+  clearInterval(timer);
+
+  userAnswers.push(index); // Store the selected answer
+
+  const correctIndex = questions[current].answer;
+  const buttons = document.querySelectorAll(".option");
+
+  buttons.forEach((b, i) => {
+    if (i === correctIndex) b.classList.add("correct");
+    if (i === index && i !== correctIndex) b.classList.add("wrong");
+    b.disabled = true;
+  });
+
+  if (index === correctIndex) {
+    score++;
+    progressBar.children[current].classList.add("correct");
+  } else {
+    progressBar.children[current].classList.add("wrong");
+  }
+
+  nextBtn.disabled = false;
+}
+
+function lockAnswers() {
+  userAnswers.push(null); // No answer selected (timed out)
+
+  const correctIndex = questions[current].answer;
+  const buttons = document.querySelectorAll(".option");
+
+  buttons.forEach((b, i) => {
+    if (i === correctIndex) b.classList.add("correct");
+    b.disabled = true;
+  });
+
+  progressBar.children[current].classList.add("wrong");
+  nextBtn.disabled = false;
+}
+
+nextBtn.onclick = () => {
+  current++;
+  if (current < questions.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+};
+
+function showResult() {
+  questionEl.textContent = "Quiz Completed!";
+  optionsEl.innerHTML = "";
+  nextBtn.style.display = "none";
+
+  resultEl.innerHTML = `
+    <h4>Your Score: ${score}/${questions.length}</h4>
+    <button class="btn btn-success mt-2" onclick="downloadPDF()">Download PDF</button>
+  `;
+}
+if (localStorage.getItem("mode") === "dark") {
+  document.body.classList.add("dark-mode");
+}
+
+function toggleMode() {
+  document.body.classList.toggle("dark-mode");
+
+  if (document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("mode", "dark");
+  } else {
+    localStorage.setItem("mode", "light");
+  }
+}
+
+function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.text("Quiz Result", 10, 10);
+  doc.text(`Score: ${score}/${questions.length}`, 10, 20);
+
+  let y = 30; // Starting y position for questions
+
+  questions.forEach((q, index) => {
+    if (y > 270) { // If near bottom, add new page
+      doc.addPage();
+      y = 10;
+    }
+
+    doc.text(`Question ${index + 1}: ${q.q}`, 10, y);
+    y += 10;
+
+    const correctAnswer = q.options[q.answer];
+    doc.text(`Correct Answer: ${correctAnswer}`, 10, y);
+    y += 10;
+
+    const userAnswer = userAnswers[index];
+    const userAnswerText = userAnswer !== null ? q.options[userAnswer] : "No answer (timed out)";
+    doc.text(`Your Answer: ${userAnswerText}`, 10, y);
+    y += 15; // Extra space between questions
+  });
+
+  doc.save("quiz_result.pdf");
+}
+
+// Init
+loadQuestion();
+</script>
+
+</body>
+</html>
