@@ -1,0 +1,121 @@
+:root{
+  --accent:#0d6efd;
+  --muted:#6c757d;
+  --paper:#ffffff;
+  --shadow: 0 6px 18px rgba(0,0,0,0.06);
+  --max-width:900px;
+}
+
+body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:#222;}
+
+.card{box-shadow:var(--shadow);}
+
+/* Container for rendered CV */
+.cv-container{
+  background:var(--paper);
+  padding:18px;
+  border-radius:6px;
+  color:#111;
+  max-width:var(--max-width);
+  margin:0 auto;
+  --accent-color: var(--accent);
+}
+
+/* PROFESSIONAL: two-column */
+.template-professional{
+  display:grid;
+  grid-template-columns: 1fr 320px;
+  gap:18px;
+  align-items:start;
+}
+.prof-left{padding-right:8px;}
+.prof-right{
+  background:#f8f9fa;
+  padding:14px;
+  border-radius:6px;
+  height:100%;
+}
+
+/* CREATIVE: accent bar */
+.template-creative{
+  border-left:8px solid var(--accent-color);
+  padding-left:12px;
+  background:linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(250,250,250,1) 100%);
+}
+
+/* MINIMAL: elegant serif */
+.template-minimal{
+  font-family: "Georgia", serif;
+  line-height:1.45;
+}
+
+/* MODERN: banner header, clean sections */
+.template-modern{
+  --accent-color: var(--accent);
+  background:#fff;
+  border-radius:6px;
+  overflow:hidden;
+}
+.template-modern .cv-header{
+  background:var(--accent-color);
+  color:#fff;
+  padding:18px 20px;
+  border-radius:6px 6px 0 0;
+}
+.template-modern .cv-header .name{font-size:1.6rem;}
+.template-modern .cv-header .role{color:rgba(255,255,255,0.85);}
+.template-modern .section-title{
+  color:var(--accent-color);
+  border-bottom:2px solid var(--accent-color);
+  padding-bottom:2px;
+  margin-top:16px;
+}
+
+/* COLORFUL: light gradient background with bold accent bars */
+.template-colorful{
+  --accent-color: var(--accent);
+  background:linear-gradient(135deg, var(--accent-color)20%, #fff 80%);
+  border-radius:8px;
+  padding:12px;
+}
+.template-colorful .section-title{
+  color:#333;
+  background:rgba(255,255,255,0.8);
+  display:inline-block;
+  padding:2px 6px;
+  border-radius:4px;
+  margin-top:14px;
+}
+
+
+/* Header & photo */
+.cv-header{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.cv-photo{width:96px;height:96px;border-radius:8px;object-fit:cover;border:2px solid #e9ecef;}
+.name{font-size:1.35rem;font-weight:700;margin:0;}
+.role{color:var(--muted);margin:0;font-size:0.95rem;}
+.section-title{font-weight:700;color:var(--accent-color);margin-top:8px;margin-bottom:6px;font-size:0.95rem;}
+.small{font-size:0.9rem;color:var(--muted);}
+
+/* Badges */
+.badge-skill{display:inline-block;padding:6px 8px;border-radius:6px;background:rgba(0,0,0,0.06);margin-right:6px;margin-bottom:6px;font-size:0.85rem;}
+
+/* Job blocks */
+.list-item{margin-bottom:8px;}
+.job-title{font-weight:600;}
+.job-meta{font-size:0.9rem;color:var(--muted);}
+
+/* Responsive */
+@media (max-width:900px){
+  .template-professional{grid-template-columns:1fr;}
+  .prof-right{order:2}
+}
+
+/* Print adjustments */
+@media print{
+  body{background:#fff;}
+  .card, .container{box-shadow:none;}
+  .cv-container{box-shadow:none;}
+}
+
+/* Map modal tweaks */
+.leaflet-container{border-radius:6px;}

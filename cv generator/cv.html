@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CV Generator</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+  <h3 class="text-center mb-4">Professional CV Generator — Map & Theming</h3>
+
+  <div class="row g-4">
+    <div class="col-lg-5">
+      <div class="card p-3">
+        <form id="cvForm" class="needs-validation" novalidate>
+
+          <h5 class="mb-2">Personal</h5>
+          <div class="row g-2 mb-2">
+            <div class="col-12">
+              <label class="form-label"><strong>Full name</strong></label>
+              <input id="name" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><strong>Email</strong></label>
+              <input id="email" type="email" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><strong>Phone</strong></label>
+              <input id="phone" class="form-control" required />
+            </div>
+
+            <div class="col-md-8">
+              <label class="form-label"><strong>Location</strong></label>
+              <input id="location" class="form-control" placeholder="City, Country or pick on map" />
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+              <button id="pickLocationBtn" type="button" class="btn btn-outline-primary w-100"><i class="fa fa-map-marker-alt me-2"></i>Pick on map</button>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label"><strong>Latitude</strong></label>
+              <input id="lat" class="form-control" readonly />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><strong>Longitude</strong></label>
+              <input id="lng" class="form-control" readonly />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label"><strong>Nationality</strong></label>
+              <input id="nationality" class="form-control" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><strong>Date of birth</strong></label>
+              <input id="dob" type="date" class="form-control" />
+            </div>
+            <div class="col-md-12">
+              <label class="form-label"><strong>Current role</strong></label>
+              <input id="role" class="form-control" placeholder="e.g., Senior Software Engineer" />
+            </div>
+            <div class="col-12">
+              <label class="form-label"><strong>Professional summary</strong></label>
+              <textarea id="summary" class="form-control" rows="3" placeholder="2–4 lines summary"></textarea>
+            </div>
+          </div>
+
+          <hr />
+
+          <h5 class="mb-2">Work Experience</h5>
+          <div id="experienceList"></div>
+          <div class="d-flex gap-2 mb-3">
+            <button id="addExperience" type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-plus"></i> Add Experience</button>
+            <button id="clearExperience" type="button" class="btn btn-outline-danger btn-sm">Clear All</button>
+          </div>
+
+          <hr />
+
+          <h5 class="mb-2">Education</h5>
+          <div id="educationList"></div>
+          <div class="d-flex gap-2 mb-3">
+            <button id="addEducation" type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-plus"></i> Add Education</button>
+            <button id="clearEducation" type="button" class="btn btn-outline-danger btn-sm">Clear All</button>
+          </div>
+
+          <hr />
+
+          <h5 class="mb-2">Skills & Extras</h5>
+          <div class="mb-2">
+            <label class="form-label"><strong>Skills (comma separated)</strong></label>
+            <input id="skills" class="form-control" placeholder="e.g., JavaScript, React, SQL" />
+          </div>
+          <div class="mb-2">
+            <label class="form-label"><strong>Languages</strong></label>
+            <input id="languages" class="form-control" placeholder="e.g., English (Fluent), Urdu (Native)" />
+          </div>
+          <div class="mb-2">
+            <label class="form-label"><strong>Certifications / Awards</strong></label>
+            <textarea id="certs" class="form-control" rows="2"></textarea>
+          </div>
+
+          <hr />
+
+          <h5 class="mb-2">Links & Photo</h5>
+          <div class="row g-2 mb-3">
+            <div class="col-md-6">
+              <label class="form-label"><strong>LinkedIn</strong></label>
+              <input id="linkedin" class="form-control" placeholder="linkedin.com/in/yourname" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><strong>GitHub / Portfolio</strong></label>
+              <input id="github" class="form-control" placeholder="github.com/username" />
+            </div>
+            <div class="col-12">
+              <label class="form-label"><strong>Profile photo</strong></label>
+              <input id="photo" type="file" accept="image/*" class="form-control" />
+            </div>
+          </div>
+
+          <hr />
+
+          <h5 class="mb-2">Template & Theme</h5>
+          <div class="mb-3">
+            <label class="form-label"><strong>Template</strong></label>
+            <select id="template" class="form-select">
+              <option value="professional">Professional (two-column)</option>
+              <option value="creative">Creative (accent color)</option>
+              <option value="minimal">Minimal (single column)</option>
+              <option value="modern">Modern (banner header)</option>
+              <option value="colorful">Colorful (gradient accents)</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label"><strong>Accent color</strong></label>
+            <div class="d-flex gap-2 align-items-center">
+              <input id="accentColor" type="color" value="#0d6efd" class="form-control form-control-color w-auto p-0" title="Choose accent color">
+              <select id="presetColors" class="form-select w-auto">
+                <option value="">Presets</option>
+                <option value="#0d6efd">Blue</option>
+                <option value="#198754">Green</option>
+                <option value="#dc3545">Red</option>
+                <option value="#6f42c1">Purple</option>
+                <option value="#fd7e14">Orange</option>
+                <option value="#20c997">Teal</option>
+                <option value="#e83e8c">Pink</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button id="generate" type="submit" class="btn btn-primary"><i class="fa fa-file-lines"></i> Generate CV</button>
+            <button id="loadExample" type="button" class="btn btn-outline-success"><i class="fa fa-lightbulb"></i> Load Example</button>
+            <button id="previewToggle" type="button" class="btn btn-outline-secondary">Toggle Preview</button>
+            <button id="resetForm" type="button" class="btn btn-outline-danger">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-7">
+      <div id="cvPreview" class="card p-3 d-none">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div>
+            <button id="downloadPdf" class="btn btn-success btn-sm"><i class="fa fa-download"></i> Download PDF</button>
+            <button id="printCv" class="btn btn-outline-secondary btn-sm"><i class="fa fa-print"></i> Print</button>
+          </div>
+          <div>
+            <button id="editBtn" class="btn btn-outline-primary btn-sm">Edit</button>
+          </div>
+        </div>
+
+        <div id="cvContent" class="cv-container"></div>
+      </div>
+
+      <div id="emptyPreview" class="card p-4 text-center">
+        <p class="mb-0 text-muted">Fill the form and click <strong>Generate CV</strong> or <strong>Load Example</strong> to preview professional templates.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="mapModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pick Location on Map</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div id="map" style="height:480px;"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="useLocationBtn" type="button" class="btn btn-primary">Use Selected Location</button>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- html2pdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- App JS -->
+<script src="script.js"></script>
+</body>
+</html>
