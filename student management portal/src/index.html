@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-shape bg-shape-1"></div>
+  <div class="bg-shape bg-shape-2"></div>
+
+  <main class="container">
+    <section class="auth-shell" id="auth-card">
+      <div class="auth-sidebar">
+        <span class="eyebrow">University Suite</span>
+        <h1>Student portal built for daily academic work.</h1>
+        <p>Manage students, courses, attendance, marks, and assignments from one browser-based workspace.</p>
+        <div class="feature-stack">
+          <div class="feature-item">Course registration</div>
+          <div class="feature-item">Attendance tracking</div>
+          <div class="feature-item">Mark summaries</div>
+          <div class="feature-item">Assignment portal</div>
+        </div>
+      </div>
+
+      <div class="auth-card panel-surface">
+        <div class="auth-head">
+          <h2>Welcome Back</h2>
+          <p class="muted">Create your account or sign in to continue.</p>
+        </div>
+
+        <div class="main-tabs" role="tablist" aria-label="Auth Mode">
+          <button class="main-tab active" data-main="signup-panel">Sign Up</button>
+          <button class="main-tab" data-main="login-panel">Login</button>
+        </div>
+
+        <section class="main-panel active" id="signup-panel">
+          <div class="tabs" role="tablist" aria-label="Signup Role">
+            <button class="tab active" data-tab="student-register">Student Signup</button>
+            <button class="tab" data-tab="teacher-register">Teacher Signup</button>
+          </div>
+
+          <div class="tab-content active" id="student-register">
+            <form id="studentForm" class="form-grid">
+              <input required name="firstName" placeholder="First name">
+              <input required name="lastName" placeholder="Last name">
+              <input required type="email" name="email" placeholder="University email">
+              <input required name="program" placeholder="Program (e.g. BSc CS)">
+              <input required name="semester" placeholder="Current semester (e.g. 4)">
+              <input required name="username" placeholder="Username">
+              <input required type="password" name="password" placeholder="Password">
+              <input required name="address" placeholder="Address">
+              <input required name="phone" placeholder="Phone number">
+              <input required name="guardian" placeholder="Guardian name">
+              <button type="submit">Create Student Account</button>
+            </form>
+          </div>
+
+          <div class="tab-content" id="teacher-register">
+            <form id="teacherForm" class="form-grid">
+              <input required name="firstName" placeholder="First name">
+              <input required name="lastName" placeholder="Last name">
+              <input required type="email" name="email" placeholder="University email">
+              <input required name="department" placeholder="Department">
+              <input required name="username" placeholder="Username">
+              <input required type="password" name="password" placeholder="Password">
+              <input required name="address" placeholder="Address">
+              <input required name="phone" placeholder="Phone number">
+              <input required type="number" min="0" name="experience" placeholder="Experience (years)">
+              <input required type="number" min="0" name="salary" placeholder="Salary">
+              <button type="submit">Create Teacher Account</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="main-panel" id="login-panel">
+          <h3>Login</h3>
+          <form id="loginForm" class="form-grid compact">
+            <input required name="username" placeholder="Username">
+            <input required type="password" name="password" placeholder="Password">
+            <button type="submit">Login</button>
+          </form>
+          <div id="demoPreview" class="demo-preview" aria-live="polite"></div>
+        </section>
+        <p id="notice" class="notice" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="dashboard hidden" id="dashboard-card">
+      <aside class="sidebar">
+        <div>
+          <h2 id="dashboardTitle">Dashboard</h2>
+          <p class="muted" id="dashboardRole"></p>
+        </div>
+        <nav id="navMenu" class="nav-menu"></nav>
+        <button id="logoutBtn" class="danger">Logout</button>
+      </aside>
+
+      <section class="workspace">
+        <header class="workspace-header">
+          <h3 id="workspaceTitle">Overview</h3>
+          <div id="workspaceActions" class="workspace-actions"></div>
+        </header>
+        <div id="workspaceContent"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
