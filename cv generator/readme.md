@@ -43,3 +43,21 @@
 <img width="2560" height="1440" alt="Screenshot (82)" src="https://github.com/user-attachments/assets/cbb4ccba-3961-4845-9c8e-bf79bae22b0f" />
 
 
+
+
+
+# pick location on map
+
+
+
+
+
+
+
+<img width="2560" height="1440" alt="Screenshot (83)" src="https://github.com/user-attachments/assets/b2e39fab-0f9a-4748-b996-5e63347f9b0e" />
+
+
+
+
+
+#
