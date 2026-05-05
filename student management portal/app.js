@@ -324,7 +324,7 @@ function renderOverview(user) {
 
   workspaceContent.innerHTML = `
     <div class="stats-grid">
-      <article class="stat-card"><h4>Total Students</h4><p>${students.length}</p></article>
+      <article  bg-color="red"class="stat-card" ><h4>Total Students</h4><p>abdulrehman${students.length}</p></article>
       <article class="stat-card"><h4>Approved Students</h4><p>${approvedCount}</p></article>
       <article class="stat-card"><h4>Active Courses</h4><p>${courses.length}</p></article>
       <article class="stat-card"><h4>Assignments Published</h4><p>${assignments.length}</p></article>
