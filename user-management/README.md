@@ -1,58 +1,79 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# USER MANAGEMENT SYSTEM
+# Laravel Framework Project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# intro
+This project is a User Management System developed using Laravel framework. 
+It allows users to perform CRUD operations including Create, Read, Update, Delete, and Search functionality.
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# features
+• User Registration Form
+• Store user data in database
+• Image upload functionality
+• Display users in table
+• Edit and update records
+• Delete records with confirmation
+• Search users by email
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# tech
+• Laravel Framework (PHP)
+• MySQL Database
+• HTML / CSS
+• XAMPP Server
 
-## Learning Laravel
+# registeration form
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<img width="2560" height="1440" alt="Screenshot (119)" src="https://github.com/user-attachments/assets/996337a1-04cc-46c7-803c-fbbc483ab593" />
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# user list
+<img width="2560" height="1440" alt="Screenshot (120)" src="https://github.com/user-attachments/assets/012f8767-ed34-4822-b531-44824bf54438" />
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
 
-## Agentic Development
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
 
-```bash
-composer require laravel/boost --dev
 
-php artisan boost:install
-```
+# edit
+ # before
+<img width="2560" height="1440" alt="Screenshot (125)" src="https://github.com/user-attachments/assets/004896f1-ef6a-42db-ba4f-625985ecf4d3" />
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+#    After
+<img width="2560" height="1440" alt="Screenshot (129)" src="https://github.com/user-attachments/assets/7595478d-135e-439d-abe3-a93d751fbb3a" />
 
-## Contributing
+# delete
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<img width="2560" height="1440" alt="Screenshot (125)" src="https://github.com/user-attachments/assets/8a683073-312d-4ec0-beb6-09d8517c3f48" />
+<img width="2560" height="1440" alt="Screenshot (124)" src="https://github.com/user-attachments/assets/8c05cd97-e934-4ae6-9eaa-a4787940db84" />
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# search
+<img width="2560" height="1440" alt="Screenshot (127)" src="https://github.com/user-attachments/assets/bfd498c4-3bcb-4ed1-b7a5-12db9b8c0593" />
+<img width="2560" height="1440" alt="Screenshot (126)" src="https://github.com/user-attachments/assets/7ccc8f4f-fc0b-4a64-84ce-3a7e63c8552c" />
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# conclusion
+This project successfully demonstrates CRUD operations in Laravel with image upload and search functionality. 
+It helps understand MVC architecture and database integration in web applications.
